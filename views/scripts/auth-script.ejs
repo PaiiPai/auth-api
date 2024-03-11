@@ -1,0 +1,47 @@
+<script async>
+
+    const auth = async event => {
+
+        event.preventDefault();
+
+        const isTitle = '<%= title %>' === 'signup';
+
+        // error messages
+        let emailErr = document.querySelector('.err.email');
+        let passwordErr = document.querySelector('.err.password');
+        let retypePwErr = document.querySelector('.err.retypePw') || null;
+
+        // input values
+        const email = document.querySelector('#email').value;
+        const password = document.querySelector('#password').value;
+        let retypePw;
+        isTitle && (retypePw = document.querySelector('#retypePw').value);
+
+        try {
+            const res = await fetch('/<%= title %>', {
+                method: 'POST',
+                body: JSON.stringify({ email, password, retypePw: isTitle ? retypePw : undefined }),
+                headers: { "Content-Type": 'application/json' }
+            });
+
+            const data = await res.json();
+
+            if (data.errMsgs) {                  // reset error messages
+                emailErr.textContent = data.errMsgs.email || '';
+                passwordErr.textContent = data.errMsgs.password || '';
+                isTitle && (retypePwErr.textContent = data.errMsgs.retypePw || '');
+            }
+
+            if (data.user != null) {
+                location.href = '/';
+            }
+
+        }
+        catch (err) {
+            console.log('Error during signup: ' + err);
+        }
+    }
+
+    document.querySelector('form').addEventListener('submit', auth);
+
+</script>

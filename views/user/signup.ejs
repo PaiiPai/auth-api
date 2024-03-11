@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('../partials/head.ejs') %>
+<body>
+
+    <%- include('../partials/nav.ejs') %>
+
+    <main class="container-fluid d-flex justify-content-center p-5">
+        <div class="container col-md-6 bg-light border mx-5 px-5 py-4">
+            <h1 class="my-3">Sign Up</h1>
+            <form>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Username</label>
+                    <input type="email" class="form-control" id="email">
+                    <div class="err email text-danger"></div>
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Password</label>
+                    <input type="password" class="form-control" id="password">
+                    <div class="err password text-danger"></div>
+                </div>
+                <div class="mb-3">
+                    <label for="retypePw" class="form-label">Confirm Password</label>
+                    <input type="password" class="form-control" id="retypePw">
+                    <div class="err retypePw text-danger"></div>
+                </div>
+                <button id="btn" type="submit" class="btn btn-primary">Sign Up</button>
+            </form>
+        </div>
+    </main>
+
+    <%- include('../partials/script.ejs') %>
+    <%- include('../scripts/auth-script.ejs') %>
+
+</body>
+</html>
