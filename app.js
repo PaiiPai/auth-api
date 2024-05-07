@@ -4,6 +4,7 @@ const userRouter = require("./routes/userRouter");
 const cookieParser = require("cookie-parser");
 const requireCookie = require("./middleware/requireCookie");
 const secretRouter = require("./routes/secretRouter");
+require("dotenv").config();
 
 const app = express();
 
@@ -13,14 +14,14 @@ app.use(cookieParser());
 
 app.set("view engine", "ejs");
 
-const username = encodeURIComponent("paipai");
-const password = encodeURIComponent("Choco95%");
+const username = encodeURIComponent(process.env.DbUser); console.log(process.env.DbUser);
+const password = encodeURIComponent(process.env.DbPassword);
 const dbURI = `mongodb+srv://${username}:${password}@cluster0.cfktonb.mongodb.net/auth`;
 mongoose
   .connect(dbURI)
   .then((result) => {
     console.log("Connected to database...");
-    let port = 3000;
+    let port = process.env.PORT;
     let hostname = 'localhost';
     app.listen(port, err => {
       if (err) {
